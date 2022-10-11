@@ -4,25 +4,33 @@
 import PackageDescription
 
 let package = Package(
-    name: "mobile-ios-sdk_package",
+    name: "Nextiles",
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
-            name: "mobile-ios-sdk_package",
-            targets: ["mobile-ios-sdk_package"]),
+            name: "Nextiles",
+            targets: ["Nextiles","NextilesTargets"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
+        .package(
+          url: "https://github.com/NordicSemiconductor/IOS-DFU-Library",
+          .upToNextMajor(from: "4.0.0")
+        )
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
-            name: "mobile-ios-sdk_package",
-            dependencies: []),
-        .testTarget(
-            name: "mobile-ios-sdk_packageTests",
-            dependencies: ["mobile-ios-sdk_package"]),
+            name: "NextilesTargets",
+            dependencies: [
+                .product(name: "NordicDFU", package: "IOS-DFU-Library")
+            ]
+        ),
+//        .binaryTarget(
+//          name: "NXSDK",
+//          path: "./Sources/NXSDK.xcframework")
+        .binaryTarget(name: "Nextiles", url: "https://github.com/Nextiles/mobile-ios-sdk_xcframework/raw/main/Nextiles.xcframework.zip", checksum: "d4f87b770ea1cbe6564b075856c98ebc64f3055a0ee7481768ce358f526abb9b")
     ]
 )
